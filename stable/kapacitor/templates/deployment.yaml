@@ -1,6 +1,6 @@
 {{- $bl := empty .Values.influxURL }}
 {{- if not $bl }}
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "kapacitor.fullname" . }}
@@ -11,10 +11,15 @@ metadata:
     app: {{ template "kapacitor.fullname" . }}
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "kapacitor.fullname" . }}
+      release: "{{ .Release.Name }}"
   template:
     metadata:
       labels:
         app: {{ template "kapacitor.fullname" . }}
+        release: "{{ .Release.Name }}"
     spec:
       containers:
       - name: {{ .Chart.Name }}
