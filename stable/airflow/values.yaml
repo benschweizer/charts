@@ -129,7 +129,7 @@ airflow:
   ## This should be a json string with your variables in it
   ## Examples:
   ##   variables: '{ "environment": "dev" }'
-  variables: {}
+  variables: '{}'
 
   ## Add airflow ppols
   ## This should be a json string with your pools in it
@@ -569,6 +569,11 @@ dags:
       pullPolicy: IfNotPresent
     ## install requirements.txt dependencies automatically
     installRequirements: true
+    ## Path to mount dags-data volume to
+    mountPath: "/dags"
+    ## Path to add to `mountPath` where we clone/sync git to. Include leading /
+    ## example: "/subdirWithDags"
+    syncSubPath: ""
 
 ##
 ## Configure logs
